@@ -16,7 +16,7 @@ namespace Moviq.Api
 
             //    return helper.ToJson(bookDomain.Repo.List(take, skip));
             //};
-
+            
             this.Get["/api/books/{uid}"] = args => {
                 return helper.ToJson(bookDomain.Repo.Get(args.uid));
             };
