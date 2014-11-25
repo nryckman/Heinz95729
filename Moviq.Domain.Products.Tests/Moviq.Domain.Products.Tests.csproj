@@ -95,13 +95,9 @@
     <Compile Include="MockSqlDbInstance.cs" />
     <Compile Include="Mocks\MockProductRepository.cs" />
     <Compile Include="Mocks\MockProducts.cs" />
-<<<<<<< HEAD
     <Compile Include="ProductNoSqlRepositoryRegressionTests.cs" />
-    <Compile Include="ProductSqlRepositoryTests.cs" />
-=======
     <Compile Include="ProductNoSqlRepositoryRegressionFixture.cs" />
     <Compile Include="ProductSqlRepositoryFixture.cs" />
->>>>>>> f49d25ef6438b839dc0f7e223839019aef47c32c
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProductNoSqlRepositoryFixture.cs" />
   </ItemGroup>

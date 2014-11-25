@@ -32,7 +32,7 @@
                 <a data-bind="text: text, href: href"></a>               
             </span>
 -->
-            <a href="/#/checkout">
+            <a href="/#/cart">
                 <i class="fa fa-shopping-cart" data-bind="text: cartCount"></i>
             </a>
         </nav>
@@ -59,6 +59,7 @@
     @Partial['../templates/error-404.html']
     @Partial['../templates/product-grid.html']
     @Partial['../templates/book-details.html']
+    @Partial['../templates/cart.html']
     @Partial['../templates/login.html']
     @Partial['../templates/register.html']
     
@@ -66,6 +67,7 @@
     
     <!-- js -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.1.0.js"></script>
     <script src="/js/lib/sammy.min.js"></script>
     <script src="/js/lib/require.js"></script>
