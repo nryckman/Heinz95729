@@ -12,6 +12,20 @@ namespace Moviq.Api
     {
         public CartModule(IModuleHelpers helper)
         {
+            this.Post["/api/cart"] = args =>
+            {
+                System.Diagnostics.Debug.WriteLine("inside add module");
+
+                return "";
+            };
+
+            this.Delete["/api/cart"] = args =>
+            {
+                System.Diagnostics.Debug.WriteLine("inside delete module");
+
+                return "";
+            };
+
             this.Get["/api/cart"] = args => {
                 System.Diagnostics.Debug.WriteLine("inside checkout module");
                 
