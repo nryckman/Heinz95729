@@ -18,6 +18,7 @@
     using System;
     using Nancy.Authentication.Forms;
     using Moviq.Domain.Auth;
+    using Moviq.Domain.CartItems;
 
     public class NancyBootstrapper : DefaultNancyBootstrapper
     {
@@ -45,9 +46,13 @@
         {
             container.Register<IFactory<IProduct>, ProductFactory>().AsMultiInstance();
 
+            container.Register<IFactory<ICartItem>, CartItemFactory>().AsMultiInstance();
+
             container.Register<IModuleHelpers, ModuleHelpers>();
 
             container.Register<IProductDomain, ProductDomain>().AsMultiInstance();
+
+            container.Register<ICartItemDomain, CartItemDomain>().AsMultiInstance();
 
             container.Register<ICouchbaseClient, CouchbaseClient>().AsSingleton();
             //container.Register<IRestClient, RestClient>().AsMultiInstance();
@@ -59,6 +64,18 @@
             {
                 return new ProductNoSqlRepository(
                     container.Resolve<IFactory<IProduct>>(),
+                    container.Resolve<ICouchbaseClient>(),
+                    container.Resolve<ILocale>(),
+                    // for some reason, resolving the RestClient throws a StackOverflow Exception
+                    // so we'll new one up explicitly
+                    new RestClient(), //container.Resolve<IRestClient>(),
+                    "http://localhost:9200/moviq/_search");
+            });
+
+            container.Register<IRepository<ICartItem>>((cntr, namedParams) =>
+            {
+                return new CartItemNoSqlRepository(
+                    container.Resolve<IFactory<ICartItem>>(),
                     container.Resolve<ICouchbaseClient>(),
                     container.Resolve<ILocale>(),
                     // for some reason, resolving the RestClient throws a StackOverflow Exception

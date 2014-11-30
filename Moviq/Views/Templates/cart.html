@@ -6,24 +6,24 @@
         <h3 class="col-lg-3">Totals</h3>
     </div>
 
-    <div data-bind="foreach: { data: data.products(), as: 'product' }">
+    <div data-bind="foreach: { data: data.cartItems(), as: 'cartItem' }">
         <div class="row">
             <div class="media col-lg-4">
                 <a class="pull-left" href="#">
-                    <img src="" alt="" data-bind="src: product.thumbnailLink, attr: { alt: product.thumbnailAlt }" data-holder-rendered="true" style="width: 75px; height: 125px;">
+                    <img src="" alt="" data-bind="src: cartItem.thumbnailLink, attr: { alt: cartItem.thumbnailAlt }" data-holder-rendered="true" style="width: 75px; height: 125px;">
                 </a>
                 <div class="media-body">
-                    <h4 class="media-heading" data-bind="text: product.title"></h4>
+                    <h4 class="media-heading" data-bind="text: cartItem.title"></h4>
                     <form action="/#/cart/remove" method="delete"><button type="submit" class="btn btn-primary">Remove</button></form>
                 </div>
             </div>
             <div class="col-lg-2">
-                <span class="purchase-price" data-bind="currency: product.price"></span>
-                <input type="hidden" value="" id="unit_cost" data-bind="value: product.price" />
+                <span class="purchase-price" data-bind="currency: cartItem.price"></span>
+                <input type="hidden" value="" id="unit_cost" data-bind="value: cartItem.price" />
             </div>
             <div class="col-lg-3">
-                <select class="form-control" data-bind="event: {change: $parent.test}" id="quantity">
-                    <option value="1" selected="selected">1</option>
+                <select class="form-control" data-bind="event: {change: $parent.calculate}, value: quantity" id="quantity">
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>

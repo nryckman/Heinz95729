@@ -1,4 +1,4 @@
-﻿namespace Moviq.Domain.Products
+﻿namespace Moviq.Domain.CartItems
 {
     using Couchbase;
     using Couchbase.Extensions;
@@ -14,35 +14,35 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class ProductNoSqlRepository : IRepository<IProduct>
+    public class CartItemNoSqlRepository : IRepository<ICartItem>
     {
         protected string keyPattern;
         protected string dataType;
 
-        public ProductNoSqlRepository(IFactory<IProduct> productFactory, ICouchbaseClient db, ILocale locale, IRestClient restClient, string searchUrl)
+        public CartItemNoSqlRepository(IFactory<ICartItem> CartItemFactory, ICouchbaseClient db, ILocale locale, IRestClient restClient, string searchUrl)
         {
-            this.productFactory = productFactory;
+            this.CartItemFactory = CartItemFactory;
             this.db = db;
             this.locale = locale;
-            this.dataType = ((IHelpCategorizeNoSqlData)productFactory.GetInstance())._type;
+            this.dataType = ((IHelpCategorizeNoSqlData)CartItemFactory.GetInstance())._type;
             this.keyPattern = String.Concat(this.dataType, "::{0}");
             this.restClient = restClient;
             this.searchUrl = searchUrl;
         }
 
-        IFactory<IProduct> productFactory;
+        IFactory<ICartItem> CartItemFactory;
         ICouchbaseClient db;
         ILocale locale;
         IRestClient restClient;
         string searchUrl;
         string query = "{ \"query\": { \"query_string\": { \"query_string\": { \"query\": \"{0}\" } } } }";
 
-        public IProduct Get(string uid)
+        public ICartItem Get(string uid)
         {
-            return db.GetJson<Product>(String.Format(keyPattern, uid.ToString()));
+            return db.GetJson<CartItem>(String.Format(keyPattern, uid.ToString()));
         }
 
-        private IEnumerable<IProduct> Get(IEnumerable<string> keys) 
+        private IEnumerable<ICartItem> Get(IEnumerable<string> keys) 
         {
             if (!keys.Any())
                 yield break;
@@ -53,20 +53,20 @@
                 yield break;
 
             foreach (var o in _results)
-                yield return JsonConvert.DeserializeObject<Product>(o.ToString());
+                yield return JsonConvert.DeserializeObject<CartItem>(o.ToString());
         }
 
-        public IProduct Set(IProduct product)
+        public ICartItem Set(ICartItem CartItem)
         {
-            if (db.StoreJson(StoreMode.Set, String.Format(keyPattern, product.Uid), product))
+            if (db.StoreJson(StoreMode.Set, String.Format(keyPattern, CartItem.Guid), CartItem))
             {
-                return Get(product.Uid);
+                return Get(CartItem.Guid.ToString());
             }
 
-            throw new Exception(locale.ProductSetFailure);
+            throw new Exception(locale.CartItemSetFailure);
         }
 
-        public IEnumerable<IProduct> List(int take, int skip)
+        public IEnumerable<ICartItem> List(int take, int skip)
         {
             // TODO: We are breaking Liskov Subsitution by not implementing this method!
 
@@ -74,7 +74,7 @@
             throw new Exception(locale.LiskovSubstitutionInfraction);
         }
 
-        public async Task<IEnumerable<IProduct>> Find(string searchFor)
+        public async Task<IEnumerable<ICartItem>> Find(string searchFor)
         {
             // alternatively we could use the elasticsearch.NET option
             // http://www.elasticsearch.org/guide/en/elasticsearch/client/net-api/current/_elasticsearch_net.html

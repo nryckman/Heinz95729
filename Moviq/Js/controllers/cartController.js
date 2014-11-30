@@ -1,6 +1,6 @@
 /*global define, JSON*/
 define('controllers/cartController', {
-    init: function ($, routes, viewEngine, Products, Product) {
+    init: function ($, routes, viewEngine, CartItems, CartItem) {
         "use strict";
 
         var onAddProduct = function (template, data) {
@@ -8,7 +8,7 @@ define('controllers/cartController', {
         
             self.template = template;
             self.data = data;
-            self.test = function () {
+            self.calculate = function () {
                 var unit_costs = [];
                 $("input#unit_cost").each(function () {
                     unit_costs.push($(this).val());
@@ -29,8 +29,11 @@ define('controllers/cartController', {
 
                 $("span#total").first().text('$' + total.toFixed(2));
             };
-      
-        
+
+            self.after = function () {
+                self.calculate();
+            };
+
             return self;
         };
 
@@ -62,10 +65,11 @@ define('controllers/cartController', {
                 url: '/api/cart/list',
                 method: 'GET'
             }).done(function (data) {
-                var results = new Products(JSON.parse(data));
+                var results = new CartItems(JSON.parse(data));
 
-                if (results.products().length > 0) {
-                    viewEngine.setView(onAddProduct('t-cart', results));
+                if (results.cartItems().length > 0) {
+                    var viewModel = onAddProduct('t-cart', results);
+                    viewEngine.setView(viewModel);
                 } else {
                     viewEngine.setView({
                         template: 't-cart',
