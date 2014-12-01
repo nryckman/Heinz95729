@@ -11,14 +11,14 @@ require(['routeEngine', 'views/viewEngine', 'config', 'utils',
          'models/cartItem', 'models/cartItems',
          'models/book', 'models/books',
          'views/headerVw',
-         'jquery', 'ko', 'lib/ko.binders', 'sammy'],
+         'ko', 'lib/ko.binders', 'sammy', 'jquery', 'lib/jquery.cookie'],
         function (routeEngineCtor, viewEngineCtor, configCtor, utilsCtor,
                    homeControllerCtor, booksControllerCtor,
                    authControllerCtor, cartControllerCtor,
                    profileControllerCtor,
                    ProductCtor, ProductsCtor, CartItemCtor, CartItemsCtor, BookCtor, BooksCtor,
                    headerVwCtor,
-                   $, ko, koBinders, sammy) {
+                   ko, koBinders, sammy, $) {
         "use strict";
 
         var config,

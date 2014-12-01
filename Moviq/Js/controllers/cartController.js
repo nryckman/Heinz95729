@@ -50,6 +50,14 @@ define('controllers/cartController', {
 
         // POST /#/cart/add
         routes.post(/^\/#\/cart\/add\/?/i, function (context) {  // /books
+            var cart_id = $.cookie('cart_id');
+            if (cart_id) {
+                alert('cart_id: ' + cart_id);
+            } else {
+                alert('cart_id is undefined');
+                $.cookie('cart_id', '555', { expires: 365, path: '/' });
+            }
+
             $.ajax({
                 url: '/api/cart/add/' + this.params['uid'],
                 method: 'POST'
