@@ -6,6 +6,7 @@
 require(['routeEngine', 'views/viewEngine', 'config', 'utils',
          'controllers/homeController', 'controllers/booksController',
          'controllers/authController', 'controllers/cartController',
+         'controllers/historyController',
          'controllers/profileController',
          'models/product', 'models/products',
          'models/cartItem', 'models/cartItems',
@@ -15,6 +16,7 @@ require(['routeEngine', 'views/viewEngine', 'config', 'utils',
         function (routeEngineCtor, viewEngineCtor, configCtor, utilsCtor,
                    homeControllerCtor, booksControllerCtor,
                    authControllerCtor, cartControllerCtor,
+                   historyControllerCtor,
                    profileControllerCtor,
                    ProductCtor, ProductsCtor, CartItemCtor, CartItemsCtor, BookCtor, BooksCtor,
                    headerVwCtor,
@@ -35,6 +37,7 @@ require(['routeEngine', 'views/viewEngine', 'config', 'utils',
             booksController,
             authController,
             cartController,
+            historyController,
             profileController;
             
         // initialize ko binding extensions
@@ -69,6 +72,7 @@ require(['routeEngine', 'views/viewEngine', 'config', 'utils',
             homeController = homeControllerCtor.init(routeEngine, viewEngine, Products, Product);
             authController = authControllerCtor.init($, routeEngine, viewEngine);
             cartController = cartControllerCtor.init($, routeEngine, viewEngine, CartItems, CartItem);
+            historyController = historyControllerCtor.init($, routeEngine, viewEngine);
             profileController = profileControllerCtor.init($, routeEngine, viewEngine);
         }());
         //endregion CONTROLLERS
