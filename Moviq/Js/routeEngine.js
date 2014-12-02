@@ -3,7 +3,7 @@
 define('routeEngine', { init: function ($, globalSammy, config, utils, viewEngine) {
     "use strict";
     
-    var sammy, listen, addNewRoute, get, post, put, del, any, navigate;
+    var sammy, listen, addNewRoute, get, post, put, del, any, navigate, refresh;
     
     sammy = globalSammy(config.selectors.main, function () {
         this.routablePath = function (path) {
@@ -70,6 +70,10 @@ define('routeEngine', { init: function ($, globalSammy, config, utils, viewEngin
         anchor.click().remove();
     };
     
+    refresh = function () {
+        sammy.refresh();
+    };
+
     return {
         get: get,
         post: post,
@@ -77,7 +81,8 @@ define('routeEngine', { init: function ($, globalSammy, config, utils, viewEngin
         del: del,
         any: any,
         listen: listen,
-        navigate: navigate
+        navigate: navigate,
+        refresh: refresh
     };
 
 }});

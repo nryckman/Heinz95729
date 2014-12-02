@@ -37,33 +37,54 @@ define('controllers/cartController', {
             return self;
         };
 
+        function refreshCart() {
+            routes.refresh();
+        };
+
         // POST /#/cart/remove
         routes.del(/^\/#\/cart\/remove\/?/i, function (context) {  // /books
-            $.ajax({
-                url: '/api/cart/remove',
-                method: 'POST'
-            }).done(function (data) {
-                alert('deleted');
-                viewEngine.headerVw.subtractFromCart();
-            });
+            // get cart and product id
+            var cart_id = $.cookie('cart_id');
+            var product_id = this.params['product_uid'];
+
+            // remove cart_id/product_id
+            if (cart_id !== undefined) {
+                $.ajax({
+                    url: '/api/cart/remove/' + cart_id + '/' + product_id,
+                    method: 'POST'
+                }).done(function (data) {
+                    viewEngine.headerVw.subtractFromCart();
+                    refreshCart();
+                });
+            }
         });
 
         // POST /#/cart/add
         routes.post(/^\/#\/cart\/add\/?/i, function (context) {  // /books
+            // get cart and product id
             var cart_id = $.cookie('cart_id');
-            if (cart_id) {
-                alert('cart_id: ' + cart_id);
-            } else {
-                alert('cart_id is undefined');
-                $.cookie('cart_id', '555', { expires: 365, path: '/' });
-            }
+            var product_id = this.params['product_uid'];
 
+            // get new cart id
             $.ajax({
-                url: '/api/cart/add/' + this.params['uid'],
-                method: 'POST'
+                url: '/api/cart/new/',
+                method: 'GET'
             }).done(function (data) {
-                viewEngine.headerVw.addToCart();
-                location.href = '/#/cart';
+                // save new cart id
+                if (cart_id === undefined) {
+                    var cart_id_obj = JSON.parse(data);
+                    $.cookie('cart_id', cart_id_obj.cart_id, { expires: 365, path: '/' });
+                    cart_id = $.cookie('cart_id');
+                }
+
+                // add cart item
+                $.ajax({
+                    url: '/api/cart/add/' + cart_id + '/' + product_id,
+                    method: 'POST'
+                }).done(function (data) {
+                    viewEngine.headerVw.addToCart();
+                    location.href = '/#/cart';
+                });
             });
         });
 
@@ -86,8 +107,5 @@ define('controllers/cartController', {
                 }
             });            
         });
-
-
-
     }
 });

@@ -14,6 +14,13 @@ namespace Moviq.Api
     {
         public CartModule(ICartItemDomain cartItems, IProductDomain products, IModuleHelpers helper)
         {
+            this.Get["/api/cart/new"] = args =>
+            {
+                System.Diagnostics.Debug.WriteLine("inside new api");
+                Guid guid = Guid.NewGuid();
+                return "{\"cart_id\":\"" + guid.ToString() + "\"}";
+            };
+
             this.Post["/api/cart/update"] = args =>
             {
                 System.Diagnostics.Debug.WriteLine("inside update module");
@@ -21,10 +28,11 @@ namespace Moviq.Api
                 return "";
             };
 
-            this.Post["/api/cart/add/{uid}"] = args =>
+            this.Post["/api/cart/add/{cart_id}/{product_id}"] = args =>
             {
+
                 // find product
-                IProduct product = products.Repo.Get(args.uid);
+                IProduct product = products.Repo.Get(args.product_id);
 
                 // if the item isn't in the cart and the product is not null, then add it
                 if (product != null)
@@ -42,15 +50,16 @@ namespace Moviq.Api
                     CartItem1.Quantity = 1;
                 }
 
-                string message = "inside add module " + args.uid;
+                string message = "inside add module " + args.product_id + " and " + args.cart_id;
                 System.Diagnostics.Debug.WriteLine(message);
 
                 return "";
             };
 
-            this.Post["/api/cart/remove"] = args =>
+            this.Post["/api/cart/remove/{cart_id}/{product_id}"] = args =>
             {
-                System.Diagnostics.Debug.WriteLine("inside remove module");
+                string message = "inside remove module " + args.product_id + " and " + args.cart_id;
+                System.Diagnostics.Debug.WriteLine(message);
 
                 return "";
             };

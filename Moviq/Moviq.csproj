@@ -125,6 +125,7 @@
     <Content Include="Js\controllers\homeController.js" />
     <Content Include="Js\controllers\profileController.js" />
     <Content Include="Js\lib\grid.js" />
+    <Content Include="Js\lib\jquery.cookie.js" />
     <Content Include="Js\lib\ko.binders.js" />
     <Content Include="Js\lib\modernizr.custom.js" />
     <Content Include="Js\lib\require.js" />

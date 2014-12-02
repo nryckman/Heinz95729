@@ -14,7 +14,10 @@
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading" data-bind="text: cartItem.title"></h4>
-                    <form action="/#/cart/remove" method="delete"><button type="submit" class="btn btn-primary">Remove</button></form>
+                    <form action="/#/cart/remove" method="delete">
+                        <button type="submit" class="btn btn-primary">Remove</button>
+                        <input type="hidden" name="product_uid" value="" data-bind="value: cartItem.productUid">
+                    </form>
                 </div>
             </div>
             <div class="col-lg-2">
