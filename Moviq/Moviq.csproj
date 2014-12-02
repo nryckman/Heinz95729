@@ -119,6 +119,7 @@
     <Content Include="Images\thumbs\3.jpg" />
     <Content Include="Js\compositionRoot.js" />
     <Content Include="Js\config.js" />
+    <Content Include="Js\controllers\checkoutController.js" />
     <Content Include="Js\controllers\historyController.js" />
     <Content Include="Js\controllers\authController.js" />
     <Content Include="Js\controllers\cartController.js" />
@@ -178,6 +179,7 @@
     <Content Include="Views\Templates\book-details.html" />
     <Content Include="Views\Templates\cart.html" />
     <Content Include="Views\Templates\error-404.html" />
+    <Content Include="Views\Templates\checkout.html" />
     <Content Include="Views\Templates\login.html" />
     <Content Include="Views\Templates\register.html" />
     <Content Include="Views\Templates\search-no-results.html" />
