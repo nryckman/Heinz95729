@@ -101,7 +101,7 @@ define('controllers/cartController', {
                     viewEngine.setView(viewModel);
                 } else {
                     viewEngine.setView({
-                        template: 't-cart',
+                        template: 't-empty',
                         data: { searchterm: 'blah' }
                     });
                 }

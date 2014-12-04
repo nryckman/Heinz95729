@@ -18,7 +18,7 @@ define('controllers/historyController', {
         // GET /#/history
         routes.get(/^\/#\/history\/?/i, function (context) {  // /books
             $.ajax({
-                url: '/api/history/list',
+                url: '/api/cart/list',
                 method: 'GET'
             }).done(function (data) {
                 var results = new CartItems(JSON.parse(data));

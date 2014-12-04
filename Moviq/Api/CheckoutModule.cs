@@ -9,9 +9,13 @@ namespace Moviq.Api
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
     using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
     public class CheckoutModule : NancyModule
     {
+        public static ArrayList CartItemList = new ArrayList();
+
         public CheckoutModule(ICartItemDomain cartItems, IProductDomain products, IModuleHelpers helper)
         {
             this.Get["/api/cart/new"] = args =>
@@ -48,9 +52,15 @@ namespace Moviq.Api
                     CartItem1.LastModified = new DateTime();
                     CartItem1.PurchaseDate = new DateTime();
                     CartItem1.Quantity = 1;
+
+                    CartItemList.Add(CartItem1);
+
                 }
 
-                string message = "inside add module " + args.product_id + " and " + args.cart_id;
+
+                string message = CartItemList.Count + " inside add module " + args.product_id + " and " + args.cart_id;
+
+
                 System.Diagnostics.Debug.WriteLine(message);
 
                 return "";
@@ -60,7 +70,22 @@ namespace Moviq.Api
             {
                 string message = "inside remove module " + args.product_id + " and " + args.cart_id;
                 System.Diagnostics.Debug.WriteLine(message);
+                int index = -1;
+                for (int i = 0; i < CartItemList.Count; i++)
+                {
+                    ICartItem cartItem = (ICartItem) CartItemList[i];
+                    if (cartItem.ProductUid.ToString().Equals(args.product_id))
+                    {
+                        index = i;
+                        break;
+                    }
+                }
 
+                if (index > -1)
+                {
+                    CartItemList.RemoveAt(index);
+                }
+              
                 return "";
             };
 
@@ -68,33 +93,33 @@ namespace Moviq.Api
                 System.Diagnostics.Debug.WriteLine("inside checkout module");
 
                 // create mock cart items
-                ICartItem CartItem1 = new CartItem();
-                CartItem1.Guid = Guid.NewGuid();
-                CartItem1.UserGuid = Guid.NewGuid();
-                CartItem1.ProductUid = "dirk_gentlys_detective_agency";
-                CartItem1.Title = "Dirk Gently's Holistic Detective Agency";
-                CartItem1.Price = 6.83m;
-                CartItem1.ThumbnailLink = "/images/books/dirkgently.jpeg";
-                CartItem1.LastModified = new DateTime();
-                CartItem1.PurchaseDate = new DateTime();
-                CartItem1.Quantity = 2;
+                //ICartItem CartItem1 = new CartItem();
+                //CartItem1.Guid = Guid.NewGuid();
+                //CartItem1.UserGuid = Guid.NewGuid();
+                //CartItem1.ProductUid = "dirk_gentlys_detective_agency";
+                //CartItem1.Title = "Dirk Gently's Holistic Detective Agency";
+                //CartItem1.Price = 6.83m;
+                //CartItem1.ThumbnailLink = "/images/books/dirkgently.jpeg";
+                //CartItem1.LastModified = new DateTime();
+                //CartItem1.PurchaseDate = new DateTime();
+                //CartItem1.Quantity = 2;
 
-                ICartItem CartItem2 = new CartItem();
-                CartItem2.Guid = Guid.NewGuid();
-                CartItem2.UserGuid = Guid.NewGuid();
-                CartItem2.ProductUid = "universe_everything";
-                CartItem2.Title = "Life, the Universe and Everything";
-                CartItem2.Price = 5.99m;
-                CartItem2.ThumbnailLink = "/images/books/lifeandeverything.jpeg";
-                CartItem2.LastModified = new DateTime();
-                CartItem2.PurchaseDate = new DateTime();
-                CartItem2.Quantity = 3;
+                //ICartItem CartItem2 = new CartItem();
+                //CartItem2.Guid = Guid.NewGuid();
+                //CartItem2.UserGuid = Guid.NewGuid();
+                //CartItem2.ProductUid = "universe_everything";
+                //CartItem2.Title = "Life, the Universe and Everything";
+                //CartItem2.Price = 5.99m;
+                //CartItem2.ThumbnailLink = "/images/books/lifeandeverything.jpeg";
+                //CartItem2.LastModified = new DateTime();
+                //CartItem2.PurchaseDate = new DateTime();
+                //CartItem2.Quantity = 3;
 
-                ICartItem[] CartItemList = new ICartItem[2]
-                {
-                    CartItem1,
-                    CartItem2
-                };
+                //ICartItem[] CartItemList = new ICartItem[2]
+                //{
+                //    CartItem1,
+                //    CartItem2
+                //};
               
                 // return them as JSON
                 return helper.ToJson(CartItemList);
