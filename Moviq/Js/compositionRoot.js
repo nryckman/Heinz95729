@@ -73,7 +73,7 @@ require(['routeEngine', 'views/viewEngine', 'config', 'utils',
             homeController = homeControllerCtor.init(routeEngine, viewEngine, Products, Product);
             authController = authControllerCtor.init($, routeEngine, viewEngine);
             cartController = cartControllerCtor.init($, routeEngine, viewEngine, CartItems, CartItem);
-            checkoutController = checkoutControllerCtor.init($, routeEngine, viewEngine);
+            checkoutController = checkoutControllerCtor.init($, routeEngine, viewEngine, CartItems, CartItem);
             historyController = historyControllerCtor.init($, routeEngine, viewEngine);
             profileController = profileControllerCtor.init($, routeEngine, viewEngine);
         }());

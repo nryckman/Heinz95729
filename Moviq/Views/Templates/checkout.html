@@ -4,12 +4,11 @@
     <div class="split-panel-divider col-lg-6">
 
         <div class="page-header">
-            <h2 class="gdfg">Secure Payment Form</h2>
+            <h2 class="gdfg">Payment Form</h2>
         </div>
 
         <form action="/#/history" method="get" id="payment-form" class="form-horizontal">
             <fieldset>
-                <legend>Card Details</legend>
 
                 <!-- Email -->
                 <div class="form-group">
@@ -85,5 +84,12 @@
             <h2 class="gdfg">Receipt</h2>
         </div>
 
+
+        <ul class="media-list" data-bind="foreach: { data: data.cartItems(), as: 'cartItem' }">
+            <li class="media">
+                <h4 class="media-heading"><span data-bind="text: cartItem.title"/> &#151; Quantity x<span data-bind="text: cartItem.quantity" /></h4>
+                <div><span class="purchase-price" data-bind="currency: cartItem.price"/></div>
+            </li>
+        </ul>
     </div>
 </script>
