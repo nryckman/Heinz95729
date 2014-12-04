@@ -1,54 +1,50 @@
 <script id="t-history" type="text/html">
 
     <div class="page-header">
-        <h1>Account Activity</h1>
+        <h2 class="gdfg">Account Activity</h2>
     </div>
 
-
-    <div class="col-lg-3">
-        <select class="form-control">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-        </select>
+    <div class="row">
+        <div class="col-lg-3">
+            <select class="form-control">
+                <option value="1">December 2014</option>
+                <option value="2">November 2014</option>
+                <option value="3">October 2014</option>
+                <option value="4">September 2014</option>
+                <option value="5">August 2014</option>
+                <option value="6">July 2014</option>
+                <option value="7">June 2014</option>
+                <option value="8">May 2014</option>
+                <option value="9">April 2014</option>
+                <option value="10">March 2014</option>
+                <option value="11">February 2014</option>
+                <option value="12">January 2014</option>
+            </select>
+        </div>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Username</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <div class="row">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Confirmation #</th>
+                    <th>Purchase Date</th>
+                    <th>Title</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: { data: data.cartItems(), as: 'cartItem' }">
+                <tr>
+                    <td data-bind="text: cartItem.guid" />
+                    <td data-bind="text: cartItem.purchaseDate" />
+                    <td data-bind="text: cartItem.title" />
+                    <td data-bind="text: cartItem.quantity" />
+                    <td data-bind="text: cartItem.price" />
+                    <td>$29.99</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </script>
