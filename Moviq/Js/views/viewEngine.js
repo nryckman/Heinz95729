@@ -32,10 +32,24 @@ define('views/viewEngine', { init: function ($, ko) {
             }
         };
         
+        self.updateCartCount = function () {
+            var cart_id = $.cookie('cart_id');
+            $.ajax({
+                url: '/api/cart/'+ cart_id + '/count',
+                method: 'GET'
+            }).done(function (data) {
+                var cart_count_obj = JSON.parse(data);
+                var cart_count = cart_count_obj.cart_count;
+                self.cartCount(cart_count);
+            });
+        };
+
         self.links.push({ text: 'BOOKS', href: 'books' });
         self.links.push({ text: 'MUSIC', href: 'music' });
         self.links.push({ text: 'MOVIES', href: 'movies' });
         
+        self.updateCartCount();
+
         return self;
     };
     

@@ -18,6 +18,14 @@ namespace Moviq.Api
 
         public CartModule(ICartItemDomain cartItems, IProductDomain products, IModuleHelpers helper)
         {
+            this.Get["/api/cart/{cart_id}/count"] = args =>
+            {
+                System.Diagnostics.Debug.WriteLine("inside cart count api");
+                List<ICartItem> cartList = cartItems.Repo.GetCartItems(args.cart_id);
+                int cartCount = cartList == null ? 0 : cartList.Count;
+                return "{\"cart_count\":" + cartCount + "}";
+            };
+
             this.Get["/api/cart/new"] = args =>
             {
                 System.Diagnostics.Debug.WriteLine("inside new api");

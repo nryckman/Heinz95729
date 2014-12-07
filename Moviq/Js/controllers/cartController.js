@@ -29,7 +29,27 @@ define('controllers/cartController', {
 
                 $("span#total").first().text('$' + total.toFixed(2));
             };
-            
+
+            self.udpateQuantity = function (obj, event, product_uid) {
+                if (event.originalEvent) { //user changed
+                    var selector = 'form#form_' + product_uid + ' #quantity';
+                    var quantity = $(selector).val();
+                    var cart_id = $.cookie('cart_id');
+
+
+
+                    if (cart_id !== undefined) {
+                        $.ajax({
+                            url: '/api/cart/update/' + cart_id + '/' + product_uid + '/quantity/' + quantity,
+                            method: 'POST'
+                        }).done(function (data) {
+                            self.calculate();
+                        });
+                    }
+                }
+
+            }
+
             self.after = function () {
                 self.calculate();
             };
@@ -41,23 +61,6 @@ define('controllers/cartController', {
             routes.refresh();
         };
 
-        // POST /#/cart/remove
-        routes.post(/^\/#\/cart\/update\/?/i, function (context) {  // /books
-            // get cart and product id
-            var cart_id = $.cookie('cart_id');
-            var product_id = this.params['product_uid'];
-            var quantity = this.params['quantity'];
-
-            // update cart_id/product_id quantity
-            if (cart_id !== undefined) {
-                $.ajax({
-                    url: '/api/cart/update/' + cart_id + '/' + product_id + '/quantity/' + quantity,
-                    method: 'POST'
-                }).done(function (data) {
-                    alert('success');
-                });
-            }
-        });
 
         // POST /#/cart/remove
         routes.del(/^\/#\/cart\/remove\/?/i, function (context) {  // /books
@@ -71,7 +74,7 @@ define('controllers/cartController', {
                     url: '/api/cart/remove/' + cart_id + '/' + product_id,
                     method: 'POST'
                 }).done(function (data) {
-                    viewEngine.headerVw.subtractFromCart();
+                    viewEngine.headerVw.updateCartCount();
                     refreshCart();
                 });
             }
@@ -100,7 +103,7 @@ define('controllers/cartController', {
                     url: '/api/cart/add/' + cart_id + '/' + product_id,
                     method: 'POST'
                 }).done(function (data) {
-                    viewEngine.headerVw.addToCart();
+                    viewEngine.headerVw.updateCartCount();
                     location.href = '/#/cart';
                 });
             });
