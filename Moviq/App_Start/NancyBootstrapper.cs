@@ -18,7 +18,7 @@
     using System;
     using Nancy.Authentication.Forms;
     using Moviq.Domain.Auth;
-    using Moviq.Domain.CartItems;
+    using Moviq.Domain.CartItem;
 
     public class NancyBootstrapper : DefaultNancyBootstrapper
     {
@@ -72,9 +72,9 @@
                     "http://localhost:9200/moviq/_search");
             });
 
-            container.Register<IRepository<ICartItem>>((cntr, namedParams) =>
+            container.Register<ICartItemRepository<ICartItem>>((cntr, namedParams) =>
             {
-                return new CartItemNoSqlRepository(
+                return new CartItemRepository(
                     container.Resolve<IFactory<ICartItem>>(),
                     container.Resolve<ICouchbaseClient>(),
                     container.Resolve<ILocale>(),

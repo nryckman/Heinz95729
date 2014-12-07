@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Moviq.Domain.CartItems
+namespace Moviq.Domain.CartItem
 {
     public class NoSqlSearchResult
     {

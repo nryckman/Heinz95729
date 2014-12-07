@@ -60,12 +60,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICartItemRepository.cs" />
     <Compile Include="ModelBinders.cs" />
     <Compile Include="NoSqlSearchResult.cs" />
     <Compile Include="CartItem.cs" />
     <Compile Include="CartItemDomain.cs" />
     <Compile Include="CartItemFactory.cs" />
-    <Compile Include="CartItemNoSqlRepository.cs" />
+    <Compile Include="CartItemRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

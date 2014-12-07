@@ -1,6 +1,6 @@
 namespace Moviq.Api
 {
-    using Moviq.Domain.CartItems;
+    using Moviq.Domain.CartItem;
     using Moviq.Domain.Products;
     using Moviq.Helpers;
     using Moviq.Interfaces.Models;

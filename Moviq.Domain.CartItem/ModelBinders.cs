@@ -1,4 +1,4 @@
-﻿namespace Moviq.Domain.CartItems
+﻿namespace Moviq.Domain.CartItem
 {
     using Grain.DataAccess.Sql;
     using Moviq.Interfaces.Factories;

@@ -5,6 +5,6 @@
 
     public interface ICartItemDomain
     {
-        IRepository<ICartItem> Repo { get; set; }
+        ICartItemRepository<ICartItem> Repo { get; set; }
     }
 }

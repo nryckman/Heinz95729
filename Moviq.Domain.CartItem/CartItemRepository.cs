@@ -1,4 +1,4 @@
-﻿namespace Moviq.Domain.CartItems
+﻿namespace Moviq.Domain.CartItem
 {
     using Couchbase;
     using Couchbase.Extensions;
@@ -14,12 +14,12 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class CartItemNoSqlRepository : IRepository<ICartItem>
+    public class CartItemRepository : ICartItemRepository<ICartItem>
     {
         protected string keyPattern;
         protected string dataType;
 
-        public CartItemNoSqlRepository(IFactory<ICartItem> CartItemFactory, ICouchbaseClient db, ILocale locale, IRestClient restClient, string searchUrl)
+        public CartItemRepository(IFactory<ICartItem> CartItemFactory, ICouchbaseClient db, ILocale locale, IRestClient restClient, string searchUrl)
         {
             this.CartItemFactory = CartItemFactory;
             this.db = db;
@@ -36,6 +36,27 @@
         IRestClient restClient;
         string searchUrl;
         string query = "{ \"query\": { \"query_string\": { \"query_string\": { \"query\": \"{0}\" } } } }";
+
+
+
+        public List<ICartItem> GetCartItems(String lookupByCartId)
+        {
+            System.Diagnostics.Debug.WriteLine("inside GetCartItems module");
+            return db.GetView<CartItem>("carts", "cart_items", true).Stale(StaleMode.False).Key(lookupByCartId).ToList<ICartItem>();
+           
+ //           foreach (var o in _results)
+  //              System.Diagnostics.Debug.WriteLine("result: "  + o.ToString());
+
+
+
+        //    foreach (var o in _results)
+         //   {
+          //      string doc = db.GetJson<CartItem>(o.ItemId).ToString();
+           //     System.Diagnostics.Debug.WriteLine("result: " + doc); 
+            //    yield return JsonConvert.DeserializeObject<CartItem>(doc);
+           // }
+        }
+
 
         public ICartItem Get(string uid)
         {
@@ -58,9 +79,16 @@
 
         public ICartItem Set(ICartItem CartItem)
         {
-            if (db.StoreJson(StoreMode.Set, String.Format(keyPattern, CartItem.Guid), CartItem))
+            // get composite key
+            string compositeKeyPattern = "{0}::{1}";
+            string compositeKey = String.Format(compositeKeyPattern, CartItem.Guid, CartItem.ProductUid);
+
+            string message = "set composite key: " + compositeKey;
+            System.Diagnostics.Debug.WriteLine(message);
+
+            if (db.StoreJson(StoreMode.Set, String.Format(keyPattern, compositeKey), CartItem))
             {
-                return Get(CartItem.Guid.ToString());
+                return Get(compositeKey);
             }
 
             throw new Exception(locale.CartItemSetFailure);
@@ -99,6 +127,9 @@
 
         public bool Delete(string uid)
         {
+            System.Diagnostics.Debug.WriteLine(String.Format(keyPattern, uid));
+
+            
             return db.Remove(String.Format(keyPattern, uid));
         }
 

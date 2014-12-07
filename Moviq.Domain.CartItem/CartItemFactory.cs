@@ -1,4 +1,4 @@
-﻿namespace Moviq.Domain.CartItems
+﻿namespace Moviq.Domain.CartItem
 {
     using Moviq.Interfaces.Factories;
     using Moviq.Interfaces.Models;

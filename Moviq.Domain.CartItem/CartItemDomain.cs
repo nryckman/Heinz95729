@@ -1,4 +1,4 @@
-﻿namespace Moviq.Domain.CartItems
+﻿namespace Moviq.Domain.CartItem
 {
     using Moviq.Interfaces.Models;
     using Moviq.Interfaces.Repositories;
@@ -6,11 +6,11 @@
 
     public class CartItemDomain : ICartItemDomain
     {
-        public CartItemDomain(IRepository<ICartItem> repo)
+        public CartItemDomain(ICartItemRepository<ICartItem> repo)
         {
             this.Repo = repo;
         }
 
-        public IRepository<ICartItem> Repo { get; set; }
+        public ICartItemRepository<ICartItem> Repo { get; set; }
     }
 }

@@ -5,7 +5,7 @@ define('controllers/cartController', {
 
         var onAddProduct = function (template, data) {
             var self = {};
-        
+
             self.template = template;
             self.data = data;
             self.calculate = function () {
@@ -29,7 +29,7 @@ define('controllers/cartController', {
 
                 $("span#total").first().text('$' + total.toFixed(2));
             };
-
+            
             self.after = function () {
                 self.calculate();
             };
@@ -40,6 +40,24 @@ define('controllers/cartController', {
         function refreshCart() {
             routes.refresh();
         };
+
+        // POST /#/cart/remove
+        routes.post(/^\/#\/cart\/update\/?/i, function (context) {  // /books
+            // get cart and product id
+            var cart_id = $.cookie('cart_id');
+            var product_id = this.params['product_uid'];
+            var quantity = this.params['quantity'];
+
+            // update cart_id/product_id quantity
+            if (cart_id !== undefined) {
+                $.ajax({
+                    url: '/api/cart/update/' + cart_id + '/' + product_id + '/quantity/' + quantity,
+                    method: 'POST'
+                }).done(function (data) {
+                    alert('success');
+                });
+            }
+        });
 
         // POST /#/cart/remove
         routes.del(/^\/#\/cart\/remove\/?/i, function (context) {  // /books
@@ -90,22 +108,33 @@ define('controllers/cartController', {
 
         // GET /#/cart
         routes.get(/^\/#\/cart\/?/i, function (context) {  // /books
-            $.ajax({
-                url: '/api/cart/list',
-                method: 'GET'
-            }).done(function (data) {
-                var results = new CartItems(JSON.parse(data));
+            var cart_id = $.cookie('cart_id');
 
-                if (results.cartItems().length > 0) {
-                    var viewModel = onAddProduct('t-cart', results);
-                    viewEngine.setView(viewModel);
-                } else {
-                    viewEngine.setView({
-                        template: 't-empty',
-                        data: { searchterm: 'blah' }
-                    });
-                }
-            });            
+            if (cart_id !== undefined)
+            {
+                $.ajax({
+                    url: '/api/cart/list/' + cart_id,
+                    method: 'GET'
+                }).done(function (data) {
+                    var results = new CartItems(JSON.parse(data));
+
+                    if (results.cartItems().length > 0) {
+                        var viewModel = onAddProduct('t-cart', results);
+                        viewEngine.setView(viewModel);
+                    } else {
+                        viewEngine.setView({
+                            template: 't-empty',
+                            data: { searchterm: 'blah' }
+                        });
+                    }
+                });
+
+            } else {
+                viewEngine.setView({
+                    template: 't-empty',
+                    data: { searchterm: 'blah' }
+                });
+            }
         });
     }
 });
