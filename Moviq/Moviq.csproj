@@ -207,10 +207,6 @@
     <Folder Include="Js\test\views\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Desktop\experiment\XamarinStripe\XamarinStripe\XamarinStripe.csproj">
-      <Project>{218cf4c2-c457-43e4-9d1b-0880d10181ff}</Project>
-      <Name>XamarinStripe</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Moviq.Domain.Auth\Moviq.Domain.Auth.csproj">
       <Project>{ff6bfde1-54e3-4999-8e5d-04081ad7cbf3}</Project>
       <Name>Moviq.Domain.Auth</Name>
@@ -234,6 +230,10 @@
     <ProjectReference Include="..\Moviq.Locale\Moviq.Locale.csproj">
       <Project>{71687340-2bec-4b85-b35d-75def65958f4}</Project>
       <Name>Moviq.Locale</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamarinStripe\XamarinStripe.csproj">
+      <Project>{218cf4c2-c457-43e4-9d1b-0880d10181ff}</Project>
+      <Name>XamarinStripe</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
