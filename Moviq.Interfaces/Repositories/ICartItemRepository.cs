@@ -19,5 +19,6 @@ namespace Moviq.Interfaces.Repositories
         /// <param name="username">the user's username</param>
         /// <returns>The user that matches the username, if any</returns>
         List<ICartItem> GetCartItems(String lookupByCartId);
+        List<ICartItem> GetPurchasedCartItems();
     }
 }

@@ -10,6 +10,23 @@ define('controllers/historyController', {
             self.template = template;
             self.data = data;
             self.after = function () {
+                var unit_costs = [];
+                $("input#unit_cost").each(function () {
+                    unit_costs.push($(this).val());
+                });
+
+                var quantities = [];
+                $("input#quantity").each(function () {
+                    quantities.push($(this).val());
+                });
+
+                var count = unit_costs.length;
+                var total = 0;
+                for (var i = 0; i < count; i++) {
+                    var subtotal = unit_costs[i] * quantities[i];
+                    total = total + subtotal;
+                    $("span#subtotal").eq(i).text('$' + subtotal.toFixed(2));
+                }
             };
 
             return self;
@@ -18,7 +35,7 @@ define('controllers/historyController', {
         // GET /#/history
         routes.get(/^\/#\/history\/?/i, function (context) {  // /books
             $.ajax({
-                url: '/api/cart/list',
+                url: '/api/history/list',
                 method: 'GET'
             }).done(function (data) {
                 var results = new CartItems(JSON.parse(data));

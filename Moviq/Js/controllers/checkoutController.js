@@ -44,8 +44,9 @@ define('controllers/checkoutController', {
                             url: '/api/checkout/pay/' + cart_id + '/' + card_number + '/' + cvc + '/' + exp_month + '/' + exp_year,
                             method: 'POST'
                         }).done(function (data) {
-                            alert('here');
-                            $form.find(':input:disabled').prop('disabled', false);
+                            $.removeCookie('cart_id');
+                            viewEngine.headerVw.updateCartCount();
+                            location.href = '/#/history?checked_out=true';
                         });
                     }
 

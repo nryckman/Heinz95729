@@ -40,9 +40,13 @@
                     <td data-bind="text: cartItem.guid" />
                     <td data-bind="text: cartItem.purchaseDate" />
                     <td data-bind="text: cartItem.title" />
-                    <td data-bind="text: cartItem.quantity" />
-                    <td data-bind="text: cartItem.price" />
-                    <td>$29.99</td>
+                    <td data-bind="text: cartItem.quantity"/>
+                    <td data-bind="text: '$' + cartItem.price()"/>
+                    <td><form>
+    <input type="hidden" value="" id="quantity" data-bind="value: cartItem.quantity" />
+    <input type="hidden" value="" id="unit_cost" data-bind="value: cartItem.price" />
+</form>
+<span id="subtotal"></span></td>
                 </tr>
             </tbody>
         </table>

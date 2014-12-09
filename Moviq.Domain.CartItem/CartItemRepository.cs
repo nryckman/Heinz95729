@@ -42,21 +42,14 @@
         public List<ICartItem> GetCartItems(String lookupByCartId)
         {
             System.Diagnostics.Debug.WriteLine("inside GetCartItems module");
-            return db.GetView<CartItem>("carts", "cart_items", true).Stale(StaleMode.False).Key(lookupByCartId).ToList<ICartItem>();
-           
- //           foreach (var o in _results)
-  //              System.Diagnostics.Debug.WriteLine("result: "  + o.ToString());
-
-
-
-        //    foreach (var o in _results)
-         //   {
-          //      string doc = db.GetJson<CartItem>(o.ItemId).ToString();
-           //     System.Diagnostics.Debug.WriteLine("result: " + doc); 
-            //    yield return JsonConvert.DeserializeObject<CartItem>(doc);
-           // }
+            return db.GetView<CartItem>("carts", "cart_items", true).Stale(StaleMode.False).Key(lookupByCartId).ToList<ICartItem>();          
         }
 
+        public List<ICartItem> GetPurchasedCartItems()
+        {
+            System.Diagnostics.Debug.WriteLine("inside GetCartItems module");
+            return db.GetView<CartItem>("carts", "purchased_cart_items", true).Stale(StaleMode.False).ToList<ICartItem>();
+        }
 
         public ICartItem Get(string uid)
         {

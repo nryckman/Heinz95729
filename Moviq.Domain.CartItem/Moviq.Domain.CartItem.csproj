@@ -60,7 +60,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ICartItemRepository.cs" />
     <Compile Include="ModelBinders.cs" />
     <Compile Include="NoSqlSearchResult.cs" />
     <Compile Include="CartItem.cs" />
