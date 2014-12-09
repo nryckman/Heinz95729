@@ -7,77 +7,63 @@
             <h2 class="gdfg">Payment Form</h2>
         </div>
 
-        <form action="/#/history" method="get" id="payment-form" class="form-horizontal">
-            <fieldset>
+        <div class="well">
+            <form id="payment-form" class="form-horizontal">
+                <span class="payment-errors"></span>
 
-                <!-- Email -->
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="textinput">Email</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="email" maxlength="65" placeholder="Email" class="email form-control">
-                    </div>
-                </div>
-
-                <!-- Card Holder Name -->
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="textinput">Card Holder's Name</label>
-                    <div class="col-sm-6">
-                        <input type="text" name="cardholdername" maxlength="70" placeholder="Card Holder Name" class="card-holder-name form-control">
-                    </div>
-                </div>
-
-                <!-- Card Number -->
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="textinput">Card Number</label>
-                    <div class="col-sm-6">
-                        <input type="text" id="cardnumber" maxlength="19" placeholder="Card Number" class="card-number form-control">
-                    </div>
-                </div>
-
-                <!-- Expiry-->
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
-                    <div class="col-sm-6">
-                        <div class="form-inline">
-                            <select name="select2" data-stripe="exp-month" class="card-expiry-month stripe-sensitive required form-control">
-                                <option value="01" selected="selected">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                            <span> / </span>
-                            <select name="select2" data-stripe="exp-year" class="card-expiry-year stripe-sensitive required form-control"></select>
-
+                <fieldset>
+                    <!-- Card Number -->
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="textinput">Card Number</label>
+                        <div class="col-sm-6">
+                            <input type="text" data-stripe="number" maxlength="20" placeholder="Card Number" class="card-number form-control" value="4242424242424242">
                         </div>
                     </div>
-                </div>
 
-                <!-- CVV -->
-                <div class="form-group">
-                    <label class="col-sm-4 control-label" for="textinput">CVV/CVV2</label>
-                    <div class="col-sm-3">
-                        <input type="text" id="cvv" placeholder="CVV" maxlength="4" class="card-cvc form-control">
-                    </div>
-                </div>
+                    <!-- Expiry-->
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="textinput">Card Expiry Date</label>
+                        <div class="col-sm-6">
+                            <div class="form-inline">
+                                <select name="select2" data-stripe="exp-month" class="card-expiry-month stripe-sensitive required form-control">
+                                    <option value="01" selected="selected">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="06">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                                <span> / </span>
+                                <select name="select2" data-stripe="exp-year" class="card-expiry-year stripe-sensitive required form-control"></select>
 
-                <!-- Submit -->
-                <div class="control-group">
-                    <div class="controls">
-                        <center>
-                            <button class="btn btn-success" type="submit">Pay Now</button>
-                        </center>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </fieldset>
-        </form>
+
+                    <!-- CVC -->
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="textinput">CVC</label>
+                        <div class="col-sm-3">
+                            <input type="text" data-stripe="cvc" id="cvc" placeholder="CVC" maxlength="4" class="card-cvc form-control" value="123">
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="control-group">
+                        <div class="col-sm-8"></div>
+                        <div class="controls col-sm-2">
+                            <button class="btn btn-success" data-bind="click: pay">Pay Now</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
     <div class="col-lg-6">
         <div class="page-header">

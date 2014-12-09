@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moviq.Domain.Auth.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moviq.Domain.CartItem", "Moviq.Domain.CartItem\Moviq.Domain.CartItem.csproj", "{E97CC915-793A-4A82-AEEE-F1032604BD0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamarinStripe", "..\..\..\..\Desktop\experiment\XamarinStripe\XamarinStripe\XamarinStripe.csproj", "{218CF4C2-C457-43E4-9D1B-0880D10181FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{E97CC915-793A-4A82-AEEE-F1032604BD0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E97CC915-793A-4A82-AEEE-F1032604BD0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E97CC915-793A-4A82-AEEE-F1032604BD0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{218CF4C2-C457-43E4-9D1B-0880D10181FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218CF4C2-C457-43E4-9D1B-0880D10181FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218CF4C2-C457-43E4-9D1B-0880D10181FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218CF4C2-C457-43E4-9D1B-0880D10181FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
